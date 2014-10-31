@@ -1,6 +1,8 @@
 package firespread;
 
 import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.*;
 
 public class Grid extends JPanel {
@@ -8,7 +10,7 @@ public class Grid extends JPanel {
     int w, h, p;
 
     private Cell cell[][];
-    private final int cellSize = 10;
+    private final int cellSize = 12;
 
     public Grid(int w, int h, int p, int x, int y) {
         this.w = w;
@@ -58,29 +60,60 @@ public class Grid extends JPanel {
         int rand = (int) (Math.random() * 100);
         System.out.println(rand);
 
-        return rand < p;
+        return rand < (p);
     }
 
-    public void start() {
-        for (int i = 1; i < cell.length - 1; i++) {
+    public boolean start() {
+        HashSet<Cell> localFire = new HashSet();
+       
+        boolean stillBurn = false;;
+        for (int i = 1; i < cell.length - 1; i++) {  
             for (int j = 1; j < cell[0].length - 1; j++) {
+                
                 if (cell[i][j].getStatus() == Cell.BURNING) {
+                    
                     if (cell[i - 1][j].getStatus() == Cell.TREE && random(p)) {
-                        cell[i - 1][j].setStatus(Cell.BURNING);
+                        localFire.add(cell[i - 1][j]);
+                        stillBurn = true;
                     }
 
                     if (cell[i][j + 1].getStatus() == Cell.TREE && random(p)) {
-                        cell[i][j + 1].setStatus(Cell.BURNING);
+                        localFire.add(cell[i][j + 1]);
+                        stillBurn = true;
                     }
 
                     if (cell[i + 1][j].getStatus() == Cell.TREE && random(p)) {
-                        cell[i + 1][j].setStatus(Cell.BURNING);
+                        localFire.add(cell[i + 1][j]);
+                        stillBurn = true;
                     }
 
                     if (cell[i][j - 1].getStatus() == Cell.TREE && random(p)) {
-                        cell[i][j - 1].setStatus(Cell.BURNING);
+                        localFire.add(cell[i][j - 1]);
+                        stillBurn = true;
                     }
+                    
+                    cell[i][j].setStatus(Cell.EMPTY);
                 }
+            }
+        }
+        
+           Object temp[] = localFire.toArray();
+           
+           for(int i = 0; i < temp.length; i++ ){
+               ((Cell)temp[i]).setStatus(Cell.BURNING);
+           }
+           
+                      
+        this.repaint();
+        return stillBurn;
+    }
+    
+    public void run() {
+        while (this.start()) {
+            try {
+                Thread.sleep(200);  
+            } catch (InterruptedException ex) {
+
             }
         }
     }
