@@ -10,55 +10,94 @@ import java.util.logging.Logger;
 
 public class FireSpread extends JFrame{
   
+//    JButton autoPlay = new JButton("Auto Play");
+//    JButton step = new JButton("Step");
+//    
+//    int w, h, p, x, y;
+//    String width, height, prob;
+//    Grid newGrid;
+    
     public static void main(String[] args) throws InterruptedException {
 
-        JButton autoPlay, step;
-
+        JButton autoPlay = new JButton("Auto Play");
+        JButton step = new JButton("Step");
+        
+        JFrame frame = new JFrame();
+        frame.setTitle("Fire_Spread");
+        frame.setSize(600, 500);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+ 
         String width = JOptionPane.showInputDialog("Please input width: ");
         String height = JOptionPane.showInputDialog("Please input height: ");
         String prob = JOptionPane.showInputDialog("Please input probability: ");
-
-        // รับ input width & height จาก user
+        
+//         รับ input width & height จาก user
         int w = Integer.parseInt(width);
         int h = Integer.parseInt(height);
         int p = Integer.parseInt(prob);
-
         int x = (int) (Math.random() * w);
         int y = (int) (Math.random() * h);
         Grid newGrid = new Grid(w, h, p, x, y);
-
-        // Create a frame
-        JFrame frame = new JFrame("Spreading_of_Fire");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // สร้างปุ่ม
-        autoPlay = new JButton("Auto Play");
+        JPanel jbutton = new JPanel();
+        jbutton.add(autoPlay);
+        jbutton.add(step);
+        frame.add(newGrid, BorderLayout.CENTER);
+        frame.add(jbutton, BorderLayout.SOUTH);
         autoPlay.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 newGrid.run();
             }
         });
-        
-        step = new JButton("Step");
         step.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 newGrid.start();
             }
         });
         
-        JPanel jpButton = new JPanel();
-        jpButton.setLayout(new GridLayout(2, 1));
-        jpButton.add(autoPlay);
-        jpButton.add(step);
-        
-
-        // ใน frame มีไรบ้าง
-        frame.setSize(600, 500);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        frame.add(newGrid, BorderLayout.CENTER);
-        frame.add(jpButton, BorderLayout.EAST);
-
     }
- 
+    
+//    public FireSpread() {
+//        
+//        JPanel jbutton = new JPanel();
+//        jbutton.add(autoPlay);
+//        jbutton.add(step);
+//        
+//        setLayout(new BorderLayout());
+//        add(jbutton, BorderLayout.CENTER);
+//        
+//        autoPlay.addActionListener(new ActionListener(){
+//            public void actionPerformed(ActionEvent e){
+//                newGrid.run();
+//            }
+//        });
+//        
+//        step.addActionListener(new ActionListener(){
+//            public void actionPerformed(ActionEvent e){
+//                newGrid.start();
+//            }
+//        });
+//    }
+//    
+//    public void setInput(String width, String height, String prob){
+//
+//        width = JOptionPane.showInputDialog("Please input width: ");
+//        w = Integer.parseInt(width);
+//        
+//        height = JOptionPane.showInputDialog("Please input height: ");
+//        h = Integer.parseInt(height);
+//        
+//        prob = JOptionPane.showInputDialog("Please input probability: ");
+//        p = Integer.parseInt(prob);
+//        
+//        x = (int)(Math.random() * w);
+//        y = (int)(Math.random() * h);
+//        
+//        newGrid = new Grid(w, h, p, x, y);
+//    }
+//    
+//    public Grid getInput(){
+//        return this.newGrid;
+//    }
 }
