@@ -10,7 +10,7 @@ public class Grid extends JPanel {
     int w, h, p;
 
     private Cell cell[][];
-    private final int cellSize = 12;
+    private final int cellSize = 13;
 
     public Grid(int w, int h, int p, int x, int y) {
         this.w = w;
@@ -116,5 +116,26 @@ public class Grid extends JPanel {
 
             }
         }
+    }
+    
+    public void reset(int w, int h, int p) {
+        
+        int x = (int) (Math.random() * w);
+        int y = (int) (Math.random() * h);
+        this.w = w;
+        this.h = h;
+        this.p = p;
+        cell = new Cell[w][h];
+        for (int i = 0; i < cell.length; i++) {
+            for (int j = 0; j < cell[0].length; j++) {
+                if ( (i == 0 || j == 0) || (i == w-1 || j == h-1)) {
+                    cell[i][j] = new Cell(Cell.EMPTY);
+                } else {
+                    cell[i][j] = new Cell(Cell.TREE);
+                }
+            }
+        }
+        cell[x][y].setStatus(2);
+        repaint();
     }
 }

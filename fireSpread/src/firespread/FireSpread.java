@@ -7,13 +7,6 @@ import java.awt.event.ActionListener;
 
 public class FireSpread extends JFrame{
   
-//    JButton autoPlay = new JButton("Auto Play");
-//    JButton step = new JButton("Step");
-//    
-//    int w, h, p, x, y;
-//    String width, height, prob;
-//    Grid newGrid;
-    
     public static void main(String[] args) throws InterruptedException {
         
         //create panel1
@@ -25,6 +18,9 @@ public class FireSpread extends JFrame{
         //step button
         JButton step = new JButton("Step");
         panel1.add(step);
+        //reset button
+        JButton reset = new JButton("Reset");
+        panel1.add(reset);
 
         String width = JOptionPane.showInputDialog("Please input width: ");
         String height = JOptionPane.showInputDialog("Please input height: ");
@@ -50,65 +46,22 @@ public class FireSpread extends JFrame{
                 newGrid.start();
             }
         });
+        //Reset
+        reset.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                newGrid.reset(w, h, p);
+            }
+        });
         //สร้างเฟรม
         JFrame frame = new JFrame();
         frame.setTitle("Fire_Spread");
-        frame.setSize(800, 500);
+        frame.setSize(800, 700);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         //add panel into the frame
         frame.add(panel1, BorderLayout.SOUTH);
-        frame.add(newGrid, BorderLayout.CENTER);
-
-//        JPanel panel2 = new JPanel();
-//        panel2.setBorder(BorderFactory.createLineBorder(Color.black));
-//        panel2.add(newGrid);
-//        frame.add(panel2, BorderLayout.CENTER);
-
+        frame.add(newGrid, BorderLayout.CENTER);    
     }
-    
-//    public FireSpread() {
-//        
-//        JPanel jbutton = new JPanel();
-//        jbutton.add(autoPlay);
-//        jbutton.add(step);
-//        
-//        setLayout(new BorderLayout());
-//        add(jbutton, BorderLayout.CENTER);
-//        
-//        autoPlay.addActionListener(new ActionListener(){
-//            public void actionPerformed(ActionEvent e){
-//                newGrid.run();
-//            }
-//        });
-//        
-//        step.addActionListener(new ActionListener(){
-//            public void actionPerformed(ActionEvent e){
-//                newGrid.start();
-//            }
-//        });
-//    }
-//    
-//    public void setInput(String width, String height, String prob){
-//
-//        width = JOptionPane.showInputDialog("Please input width: ");
-//        w = Integer.parseInt(width);
-//        
-//        height = JOptionPane.showInputDialog("Please input height: ");
-//        h = Integer.parseInt(height);
-//        
-//        prob = JOptionPane.showInputDialog("Please input probability: ");
-//        p = Integer.parseInt(prob);
-//        
-//        x = (int)(Math.random() * w);
-//        y = (int)(Math.random() * h);
-//        
-//        newGrid = new Grid(w, h, p, x, y);
-//    }
-//    
-//    public Grid getInput(){
-//        return this.newGrid;
-//    }
 }
 
