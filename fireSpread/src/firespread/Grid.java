@@ -7,27 +7,51 @@ import javax.swing.*;
 
 public class Grid extends JPanel {
 
-    int w, h, p;
+    int w, h, p, t;
 
     private Cell cell[][];
-    private final int cellSize = 13;
+    int cellSize;
 
-    public Grid(int w, int h, int p, int x, int y) {
+    public Grid(int w, int h, int p, int t, int x, int y) {
         this.w = w;
         this.h = h;
         this.p = p;
+        this.t = t;
+        
         cell = new Cell[w][h];
         for (int i = 0; i < cell.length; i++) {
             for (int j = 0; j < cell[0].length; j++) {
                 if ( (i == 0 || j == 0) || (i == w-1 || j == h-1)) {
                     cell[i][j] = new Cell(Cell.EMPTY);
-                } else {
+                }else if (randomTree(t)) {
+                    cell[i][j] = new Cell(Cell.EMPTY);
+                }else{
                     cell[i][j] = new Cell(Cell.TREE);
                 }
             }
         }
-        cell[x][y].setStatus(2);
-
+//        cell[x][y].setStatus(2);
+        //10*10
+        if (w == 10 && h == 10) {
+            cellSize = 35;
+        cell[5][5].setStatus(2);
+        //20*20
+        } if (w == 20 && h == 20) {
+            cellSize = 25;
+        cell[10][10].setStatus(2);
+        //30*30
+        } if (w == 30 && h == 30) {
+            cellSize = 19;
+        cell[15][15].setStatus(2);
+        //40*40
+        } if (w == 40 && h == 40) {
+            cellSize = 14;
+        cell[20][20].setStatus(2);
+        //50*50
+        } if (w == 50 && h == 50) {
+            cellSize = 12;
+        cell[25][25].setStatus(2);
+        }
     }
 
     public void Update() {
@@ -56,11 +80,18 @@ public class Grid extends JPanel {
         }
     }
 
-    public boolean random(int p) {
+    public boolean randomFire(int p) {
         int rand = (int) (Math.random() * 100);
         System.out.println(rand);
 
         return rand < (p);
+    }
+    
+    public boolean randomTree(int t) {
+        int rand = (int) (Math.random() * 100);
+        System.out.println(rand);
+
+        return rand > (t);
     }
 
     public boolean start() {
@@ -72,22 +103,22 @@ public class Grid extends JPanel {
                 
                 if (cell[i][j].getStatus() == Cell.BURNING) {
                     
-                    if (cell[i - 1][j].getStatus() == Cell.TREE && random(p)) {
+                    if (cell[i - 1][j].getStatus() == Cell.TREE && randomFire(p)) {
                         localFire.add(cell[i - 1][j]);
                         stillBurn = true;
                     }
 
-                    if (cell[i][j + 1].getStatus() == Cell.TREE && random(p)) {
+                    if (cell[i][j + 1].getStatus() == Cell.TREE && randomFire(p)) {
                         localFire.add(cell[i][j + 1]);
                         stillBurn = true;
                     }
 
-                    if (cell[i + 1][j].getStatus() == Cell.TREE && random(p)) {
+                    if (cell[i + 1][j].getStatus() == Cell.TREE && randomFire(p)) {
                         localFire.add(cell[i + 1][j]);
                         stillBurn = true;
                     }
 
-                    if (cell[i][j - 1].getStatus() == Cell.TREE && random(p)) {
+                    if (cell[i][j - 1].getStatus() == Cell.TREE && randomFire(p)) {
                         localFire.add(cell[i][j - 1]);
                         stillBurn = true;
                     }
@@ -113,15 +144,15 @@ public class Grid extends JPanel {
             try {
                 Thread.sleep(200);  
             } catch (InterruptedException ex) {
-
+                break;
             }
         }
     }
     
     public void reset(int w, int h, int p) {
         
-        int x = (int) (Math.random() * w);
-        int y = (int) (Math.random() * h);
+        int x = (int)(Math.random() * w);
+        int y = (int)(Math.random() * h);
         this.w = w;
         this.h = h;
         this.p = p;
@@ -130,12 +161,35 @@ public class Grid extends JPanel {
             for (int j = 0; j < cell[0].length; j++) {
                 if ( (i == 0 || j == 0) || (i == w-1 || j == h-1)) {
                     cell[i][j] = new Cell(Cell.EMPTY);
-                } else {
+                }else if (randomTree(t)) {
+                    cell[i][j] = new Cell(Cell.EMPTY);
+                }else{
                     cell[i][j] = new Cell(Cell.TREE);
                 }
             }
         }
-        cell[x][y].setStatus(2);
+//        cell[x][y].setStatus(2);
+        //10*10
+        if (w == 10 && h == 10) {
+            cellSize = 35;
+        cell[5][5].setStatus(2);
+        //20*20
+        } if (w == 20 && h == 20) {
+            cellSize = 25;
+        cell[10][10].setStatus(2);
+        //30*30
+        } if (w == 30 && h == 30) {
+            cellSize = 19;
+        cell[15][15].setStatus(2);
+        //40*40
+        } if (w == 40 && h == 40) {
+            cellSize = 14;
+        cell[20][20].setStatus(2);
+        //50*50
+        } if (w == 50 && h == 50) {
+            cellSize = 12;
+        cell[25][25].setStatus(2);
+        }
         repaint();
     }
 }

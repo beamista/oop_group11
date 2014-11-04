@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class FireSpread extends JFrame{
-  
+    
     public static void main(String[] args) throws InterruptedException {
         
         //create panel1
@@ -22,22 +22,31 @@ public class FireSpread extends JFrame{
         JButton reset = new JButton("Reset");
         panel1.add(reset);
 
-        String width = JOptionPane.showInputDialog("Please input width: ");
-        String height = JOptionPane.showInputDialog("Please input height: ");
-        String prob = JOptionPane.showInputDialog("Please input probability: ");
+        String width = JOptionPane.showInputDialog("Please input width (10, 20, 30, 40, 50): ");
+        String height = JOptionPane.showInputDialog("Please input height (10, 20, 30, 40, 50): ");
+        String prob = JOptionPane.showInputDialog("Please input probability of fire: ");
+        String probTree = JOptionPane.showInputDialog("Please input probability of tree: ");
         
         //รับ input width & height จาก user
         int w = Integer.parseInt(width);
         int h = Integer.parseInt(height);
         int p = Integer.parseInt(prob);
-        int x = (int) (Math.random() * w);
-        int y = (int) (Math.random() * h);
+        int t = Integer.parseInt(probTree);
+        int x = (int)(Math.random() * w);
+        int y = (int)(Math.random() * h);
         
-        Grid newGrid = new Grid(w, h, p, x, y);
+        Grid newGrid = new Grid(w, h, p, t, x, y);
         //ไฟลามอัตโนมัติ
-        autoPlay.addActionListener(new ActionListener(){
+        autoPlay.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                newGrid.run();
+//                newGrid.run();
+                while (newGrid.start()) {
+                    try {
+                        Thread.sleep(200);  
+                    } catch (InterruptedException ex) {
+                        break;
+                    }
+                }
             }
         });
         //ไฟลามเป็น Step
@@ -61,7 +70,7 @@ public class FireSpread extends JFrame{
         frame.setVisible(true);
         //add panel into the frame
         frame.add(panel1, BorderLayout.SOUTH);
-        frame.add(newGrid, BorderLayout.CENTER);    
+        frame.add(newGrid, BorderLayout.CENTER);  
     }
 }
 
