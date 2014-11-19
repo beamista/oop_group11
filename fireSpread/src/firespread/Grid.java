@@ -138,18 +138,18 @@ public class Grid extends JPanel {
         this.repaint();
         return stillBurn;
     }
-    
+
     public void run() {
         while (this.start()) {
             try {
-                Thread.sleep(200);  
+                Thread.sleep(500);
             } catch (InterruptedException ex) {
                 break;
             }
         }
     }
     
-    public void reset(int w, int h, int p) {
+    public void reset(int w, int h, int p, int t) {
         
         int x = (int)(Math.random() * w);
         int y = (int)(Math.random() * h);
