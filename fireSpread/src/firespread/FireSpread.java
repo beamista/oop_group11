@@ -43,6 +43,8 @@ public class FireSpread extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 if (nice == true) {
                     newGrid.start();
+                    count++;
+                    label6.setText("STEP : " + count);
                 }
             }
         };
@@ -164,8 +166,6 @@ public class FireSpread extends JFrame {
             public void actionPerformed(ActionEvent e) {
 //		        newGrid.reset(w, h, p, t);
                 letStart(); // method for autorun
-                label6.setText("STEP : " + count);
-
             }
         });
         // ไฟลามเป็น Step
